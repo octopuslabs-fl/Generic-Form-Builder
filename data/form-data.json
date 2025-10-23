@@ -1,0 +1,111 @@
+{
+  "formId": "user-onboarding-v1",
+  "title": "User Onboarding",
+  "welcome": {
+    "title": "Welcome to Our Platform!",
+    "description": "We're excited to have you. This short survey will help us personalize your experience. It'll only take a couple of minutes.",
+    "buttonText": "Start Onboarding"
+  },
+  "completion": {
+    "title": "Setup Complete!",
+    "description": "Thank you for completing the onboarding process. Your profile is now set up and you're ready to explore.",
+    "buttonText": "Start Over"
+  },
+  "steps": [
+    {
+      "id": "personal-info",
+      "title": "Personal Information",
+      "description": "Let's start with the basics. Please provide your name and a valid email.",
+      "fields": [
+        {
+          "id": "fullName",
+          "label": "Full Name",
+          "type": "text",
+          "placeholder": "e.g., Jane Doe",
+          "required": true,
+          "errorMessage": "Please enter your full name."
+        },
+        {
+          "id": "email",
+          "label": "Email Address",
+          "type": "email",
+          "placeholder": "e.g., jane.doe@example.com",
+          "required": true,
+          "validationRegex": "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$",
+          "errorMessage": "Please enter a valid email address."
+        }
+      ]
+    },
+    {
+      "id": "account-setup",
+      "title": "Account Setup",
+      "description": "Choose a secure password to protect your account.",
+      "fields": [
+        {
+          "id": "password",
+          "label": "Password",
+          "type": "password",
+          "placeholder": "Enter a strong password",
+          "required": true,
+          "validationRegex": "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$",
+          "errorMessage": "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, and a number."
+        }
+      ]
+    },
+    {
+      "id": "preferences",
+      "title": "Your Preferences",
+      "description": "Help us tailor your experience by telling us your primary interest.",
+      "fields": [
+        {
+          "id": "interest",
+          "label": "Primary Interest",
+          "type": "select",
+          "required": true,
+          "options": [
+            { "label": "Select an option...", "value": "" },
+            { "label": "Technology", "value": "tech" },
+            { "label": "Art & Design", "value": "art" },
+            { "label": "Business & Finance", "value": "business" },
+            { "label": "Health & Wellness", "value": "health" }
+          ],
+          "errorMessage": "Please select your primary interest."
+        }
+      ]
+    },
+    {
+      "id": "advanced-preferences",
+      "title": "Advanced Preferences",
+      "description": "Tell us a bit more about your interests and how you found us.",
+      "fields": [
+        {
+          "id": "topics",
+          "label": "Which topics are you interested in? (Select all that apply)",
+          "type": "checkbox-group",
+          "required": true,
+          "options": [
+            { "label": "AI & Machine Learning", "value": "ai-ml" },
+            { "label": "Web Development", "value": "web-dev" },
+            { "label": "Data Science", "value": "data-science" },
+            { "label": "UI/UX Design", "value": "ui-ux" }
+          ],
+          "allowOther": true,
+          "errorMessage": "Please select at least one interest."
+        },
+        {
+          "id": "discovery",
+          "label": "How did you hear about us?",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Social Media", "value": "social" },
+            { "label": "Friend or Colleague", "value": "referral" },
+            { "label": "Search Engine (Google, etc.)", "value": "search" }
+          ],
+          "allowOther": true,
+          "errorMessage": "Please tell us how you discovered our platform."
+        }
+      ]
+    }
+  ]
+}

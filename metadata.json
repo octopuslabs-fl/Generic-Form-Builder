@@ -1,0 +1,5 @@
+{
+  "name": "Interactive Step-by-Step Form",
+  "description": "A flexible React library that creates interactive step-by-step forms with beautiful and smooth transitions from a structured JSON file. It offers a seamless user experience with a progress bar, validation, and elegant animations.",
+  "requestFramePermissions": []
+}
