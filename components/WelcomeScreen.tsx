@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { FormConfig } from '../types';
 
@@ -9,7 +8,7 @@ interface WelcomeScreenProps {
 
 export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ content, onStart }) => {
   return (
-    <div className="flex flex-col items-center justify-center text-center p-8 min-h-[350px]">
+    <div className="flex flex-col items-center justify-center text-center p-8">
       <h2 className="text-3xl font-bold text-white mb-3">{content.title}</h2>
       <p className="text-slate-300 max-w-md mb-8">{content.description}</p>
       <button

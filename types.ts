@@ -1,4 +1,3 @@
-
 export interface FormFieldOption {
   label: string;
   value: string;
@@ -45,4 +44,14 @@ export interface FormData {
 
 export interface FormErrors {
     [key: string]: string;
+}
+
+export interface FormState {
+  currentStepIndex: number;
+  formData: FormData;
+}
+
+export interface MultiStepFormHandle {
+  getState: () => FormState;
+  restoreState: (state: FormState) => void;
 }

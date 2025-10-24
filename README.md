@@ -12,6 +12,7 @@ It offers a seamless user experience with features like a progress bar, client-s
 - **Built-in Validation**: Supports `required` fields and custom `validationRegex` for robust data validation.
 - **Rich Form Elements**: Includes support for text inputs, email, password, select dropdowns, textareas, radio button groups, and checkbox groups.
 - **"Other" Option**: Automatically adds a text input when a user selects the "Other" option in radio or checkbox groups.
+- **State Management**: Supports saving and restoring form progress, allowing users to continue later.
 - **Easy Integration**: Drop the `MultiStepForm` component into your app and handle the final data with a simple `onSubmit` callback.
 
 ## How to Integrate and Use
@@ -82,3 +83,63 @@ export default App;
 - **State Management**: All form state (current step, user input, validation errors) is managed internally by the `useMultiStepForm` custom hook. You don't need to wire up `useState` for every field.
 - **Data Storage**: As the user fills out the form, their input is stored in a simple key-value JavaScript object (e.g., `{ fullName: 'Jane Doe', email: 'jane@example.com' }`). For multi-select checkboxes, values are stored as a comma-separated string.
 - **`onSubmit` Callback**: This is the primary integration point. The `MultiStepForm` component accepts an `onSubmit` prop. This function is called only when the user clicks the final "Submit" button and all validations for the last step have passed. It receives the complete `formData` object, giving you full, clean access to the collected data.
+
+### 4. Saving and Restoring Form State
+
+The library now supports saving the form's current state (which step the user is on and the data they've entered) and restoring it later. This is useful for long forms where users might want to continue later.
+
+#### How It Works
+
+The `MultiStepForm` component exposes `getState()` and `restoreState(state)` methods through a React `ref`. You can use these methods to integrate with any storage mechanism you prefer, such as browser `localStorage` or a backend server.
+
+#### Example Usage
+
+Here's how you can add "Save" and "Load" buttons to your application.
+
+```jsx
+import React, { useRef } from 'react';
+import { MultiStepForm } from './components/MultiStepForm';
+import { FormConfig, MultiStepFormHandle } from './types';
+
+const App: React.FC = () => {
+  const formRef = useRef<MultiStepFormHandle>(null);
+  const formConfig = {/* your loaded form config */};
+
+  const saveProgress = () => {
+    if (formRef.current) {
+      const state = formRef.current.getState();
+      // Save the state to localStorage or send to a server
+      localStorage.setItem('formProgress', JSON.stringify(state));
+      alert('Progress saved!');
+    }
+  };
+
+  const loadProgress = () => {
+    const savedStateJSON = localStorage.getItem('formProgress');
+    if (savedStateJSON && formRef.current) {
+      const savedState = JSON.parse(savedStateJSON);
+      formRef.current.restoreState(savedState);
+      alert('Progress restored!');
+    }
+  };
+  
+  const handleFormSubmit = (formData) => {
+    console.log('Form Submitted!', formData);
+    localStorage.removeItem('formProgress'); // Clean up saved state
+  };
+
+  return (
+    <div>
+      <MultiStepForm 
+        ref={formRef} 
+        config={formConfig} 
+        onSubmit={handleFormSubmit} 
+      />
+      <div className="action-buttons">
+        <button onClick={saveProgress}>Save Progress</button>
+        <button onClick={loadProgress}>Load Progress</button>
+      </div>
+    </div>
+  );
+};
+```

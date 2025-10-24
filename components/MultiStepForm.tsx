@@ -1,6 +1,5 @@
-
-import React from 'react';
-import { FormConfig, FormData } from '../types';
+import React, { useState, useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
+import { FormConfig, FormData, MultiStepFormHandle, FormState } from '../types';
 import { useMultiStepForm } from '../hooks/useMultiStepForm';
 import { ProgressBar } from './ProgressBar';
 import { FormStep } from './FormStep';
@@ -15,7 +14,7 @@ interface MultiStepFormProps {
   onSubmit?: (formData: FormData) => void;
 }
 
-export const MultiStepForm: React.FC<MultiStepFormProps> = ({ config, onSubmit }) => {
+export const MultiStepForm = forwardRef<MultiStepFormHandle, MultiStepFormProps>(({ config, onSubmit }, ref) => {
   const {
     currentStepIndex,
     currentStep,
@@ -32,7 +31,47 @@ export const MultiStepForm: React.FC<MultiStepFormProps> = ({ config, onSubmit }
     goToPreviousStep,
     updateFormData,
     resetForm,
+    setFormState,
   } = useMultiStepForm(config, onSubmit);
+
+  const [containerHeight, setContainerHeight] = useState<number | 'auto'>('auto');
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useImperativeHandle(ref, () => ({
+    getState: (): FormState => ({
+      currentStepIndex,
+      formData,
+    }),
+    restoreState: (state: FormState) => {
+      setFormState(state);
+    },
+  }));
+
+  useEffect(() => {
+    // If we are on a form step, observe its height to animate the container
+    if (isFormActive && currentStepIndex >= 0) {
+      const currentStepElement = stepRefs.current[currentStepIndex];
+      
+      if (currentStepElement) {
+        const resizeObserver = new ResizeObserver(() => {
+          // When the observed element's size changes, update the container height
+          if (stepRefs.current[currentStepIndex]) {
+            setContainerHeight(stepRefs.current[currentStepIndex]!.offsetHeight);
+          }
+        });
+
+        resizeObserver.observe(currentStepElement);
+
+        // Set initial height
+        setContainerHeight(currentStepElement.offsetHeight);
+
+        return () => resizeObserver.disconnect();
+      }
+    } else {
+      // For Welcome and Completion screens, height is automatic.
+      setContainerHeight('auto');
+    }
+  }, [currentStepIndex, isFormActive, formData]); // formData dependency to recalculate on "Other" field appearance
 
   return (
     <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl shadow-2xl shadow-black/20 border border-slate-700 overflow-hidden">
@@ -43,7 +82,10 @@ export const MultiStepForm: React.FC<MultiStepFormProps> = ({ config, onSubmit }
         )}
       </div>
 
-      <div className="relative overflow-hidden min-h-[350px]">
+      <div
+        className="relative overflow-hidden transition-[height] duration-500 ease-in-out"
+        style={{ height: containerHeight }}
+      >
         {isWelcomeScreen && (
             <WelcomeScreen content={config.welcome} onStart={startForm} />
         )}
@@ -52,30 +94,26 @@ export const MultiStepForm: React.FC<MultiStepFormProps> = ({ config, onSubmit }
             <CompletionScreen content={config.completion} onRestart={resetForm} formData={formData} />
         )}
 
-        {isFormActive && (
-          <div
-            className="flex transition-transform duration-500 ease-in-out"
-            style={{
-              width: `${steps.length * 100}%`,
-              transform: `translateX(-${currentStepIndex * (100 / steps.length)}%)`,
-            }}
-          >
-            {steps.map((step) => (
-              <div
-                key={step.id}
-                className="w-full flex-shrink-0"
-                style={{ width: `${100 / steps.length}%` }}
-              >
-                <FormStep
-                  step={step}
-                  formData={formData}
-                  errors={errors}
-                  updateFormData={updateFormData}
-                />
-              </div>
-            ))}
-          </div>
-        )}
+        {isFormActive &&
+          steps.map((step, index) => (
+            <div
+              key={step.id}
+              // FIX: Changed ref callback from implicit return to block body to conform to Ref<T> type.
+              ref={el => { stepRefs.current[index] = el; }}
+              className="absolute top-0 left-0 w-full transition-transform duration-500 ease-in-out"
+              style={{
+                transform: `translateX(${(index - currentStepIndex) * 100}%)`,
+              }}
+              aria-hidden={index !== currentStepIndex}
+            >
+              <FormStep
+                step={step}
+                formData={formData}
+                errors={errors}
+                updateFormData={updateFormData}
+              />
+            </div>
+          ))}
       </div>
       
       {isFormActive && (
@@ -106,4 +144,4 @@ export const MultiStepForm: React.FC<MultiStepFormProps> = ({ config, onSubmit }
       )}
     </div>
   );
-};
+});

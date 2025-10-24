@@ -1,0 +1,544 @@
+{
+  "formId": "compliance-diagnostic-v1",
+  "title": "Diagnóstico de Compliance",
+  "welcome": {
+    "title": "Bienvenido al Diagnóstico de Compliance",
+    "description": "Este cuestionario nos ayudará a entender el nivel de madurez de su organización respecto a las leyes de Datos Personales (21.719) y Ciberseguridad (21.663).",
+    "buttonText": "Comenzar Diagnóstico"
+  },
+  "completion": {
+    "title": "Diagnóstico Completado",
+    "description": "Gracias por completar el cuestionario. Hemos recibido sus respuestas y nos pondremos en contacto pronto con un análisis preliminar.",
+    "buttonText": "Comenzar de Nuevo"
+  },
+  "steps": [
+    {
+      "id": "inventario",
+      "title": "A. Inventario y Mapeo de Datos",
+      "description": "Evaluación del inventario y mapeo de datos personales.",
+      "fields": [
+        {
+          "id": "inventario_sistemas",
+          "label": "¿Tienen inventario documentado de todos los sistemas que procesan datos personales? (ERP, CRM, RRHH, etc.)",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí, completo y actualizado", "value": "completo" },
+            { "label": "Parcial / desactualizado", "value": "parcial" },
+            { "label": "No existe", "value": "no_existe" }
+          ]
+        },
+        {
+          "id": "cantidad_sistemas",
+          "label": "¿Cuántos sistemas/aplicaciones core manejan datos personales?",
+          "type": "number",
+          "placeholder": "Ej: 5",
+          "required": true
+        },
+        {
+          "id": "diagramas_flujo",
+          "label": "¿Tienen diagramados los flujos de datos personales (DFD - Data Flow Diagrams)?",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí, documentados", "value": "si" },
+            { "label": "No", "value": "no" }
+          ]
+        },
+        {
+          "id": "residencia_datos",
+          "label": "¿Dónde residen los datos personales?",
+          "type": "radio-group",
+          "required": true,
+          "allowOther": true,
+          "options": [
+            { "label": "On-premise", "value": "on_premise" },
+            { "label": "Cloud público (AWS / Azure / GCP)", "value": "cloud_publico" },
+            { "label": "Híbrido", "value": "hibrido" },
+            { "label": "No sabemos con certeza", "value": "no_sabemos" }
+          ]
+        },
+        {
+          "id": "registro_categorias",
+          "label": "¿Tienen registro de qué datos personales recolectan por categoría? (básicos, sensibles, biométricos)",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí, categorizado", "value": "si" },
+            { "label": "Parcial", "value": "parcial" },
+            { "label": "No", "value": "no" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bases_legales",
+      "title": "B. Bases Legales y Consentimientos",
+      "description": "Análisis de las bases legales y la gestión de consentimientos.",
+      "fields": [
+        {
+          "id": "captura_consentimiento",
+          "label": "¿Cómo capturan consentimientos actualmente?",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sistema automatizado con logs", "value": "automatizado" },
+            { "label": "Formularios manuales/papel", "value": "manual" },
+            { "label": "No tenemos proceso formal", "value": "no_formal" },
+            { "label": "No capturamos consentimientos", "value": "no_capturamos" }
+          ]
+        },
+        {
+          "id": "cumplimiento_consentimiento",
+          "label": "¿Los consentimientos actuales cumplen requisitos de Ley 21.719? (expreso, previo, informado, específico, libre)",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí", "value": "si" },
+            { "label": "No estamos seguros", "value": "no_seguros" },
+            { "label": "No", "value": "no" }
+          ]
+        },
+        {
+          "id": "base_legal_identificada",
+          "label": "¿Tienen identificada la base legal para cada tratamiento de datos? (consentimiento, contrato, ley, interés legítimo)",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí, documentado", "value": "si" },
+            { "label": "No", "value": "no" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "seguridad",
+      "title": "C. Seguridad de la Información",
+      "description": "Evaluación de las medidas de seguridad implementadas.",
+      "fields": [
+        {
+          "id": "sgsi",
+          "label": "¿Tienen implementado un Sistema de Gestión de Seguridad de la Información (SGSI)?",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí, certificado (ISO 27001 u otro)", "value": "certificado" },
+            { "label": "En implementación", "value": "en_implementacion" },
+            { "label": "No", "value": "no" }
+          ]
+        },
+        {
+          "id": "ciso",
+          "label": "¿Tienen designado un CISO (Chief Information Security Officer)?",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí, dedicado", "value": "dedicado" },
+            { "label": "Sí, pero con otras funciones", "value": "compartido" },
+            { "label": "No", "value": "no" }
+          ]
+        },
+        {
+          "id": "cifrado_transito",
+          "label": "Cifrado de datos en tránsito:",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí", "value": "si" },
+            { "label": "No", "value": "no" },
+            { "label": "Parcial", "value": "parcial" }
+          ]
+        },
+        {
+          "id": "cifrado_reposo",
+          "label": "Cifrado de datos en reposo:",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí", "value": "si" },
+            { "label": "No", "value": "no" },
+            { "label": "Parcial", "value": "parcial" }
+          ]
+        },
+        {
+          "id": "cifrado_backups",
+          "label": "Cifrado de datos en backups:",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí", "value": "si" },
+            { "label": "No", "value": "no" },
+            { "label": "Parcial", "value": "parcial" }
+          ]
+        },
+        {
+          "id": "control_accesos",
+          "label": "Control de accesos:",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "RBAC implementado y documentado", "value": "rbac" },
+            { "label": "Control básico (usuarios/contraseñas)", "value": "basico" },
+            { "label": "Sin control formal", "value": "sin_control" }
+          ]
+        },
+        {
+          "id": "mfa",
+          "label": "¿MFA (autenticación multifactor) obligatorio para acceso a sistemas críticos?",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí, todos los sistemas", "value": "si_todos" },
+            { "label": "Solo algunos", "value": "algunos" },
+            { "label": "No", "value": "no" }
+          ]
+        },
+        {
+          "id": "siem",
+          "label": "¿Tienen SIEM o herramienta de monitoreo de seguridad centralizada?",
+          "type": "radio-group",
+          "required": true,
+          "allowOther": true,
+          "options": [
+            { "label": "Sí", "value": "si" },
+            { "label": "No", "value": "no" }
+          ]
+        },
+        {
+          "id": "logs_auditoria",
+          "label": "¿Logs de auditoría: están centralizados y protegidos contra modificación?",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí", "value": "si" },
+            { "label": "Parcial", "value": "parcial" },
+            { "label": "No", "value": "no" }
+          ]
+        },
+        {
+          "id": "logs_retencion",
+          "label": "¿Tiempo de retención de logs?",
+          "type": "text",
+          "placeholder": "Ej: 90 días, 1 año",
+          "required": true
+        },
+        {
+          "id": "plan_respuesta",
+          "label": "¿Tienen plan de respuesta a incidentes documentado?",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí, documentado y probado", "value": "probado" },
+            { "label": "Documentado pero no probado", "value": "no_probado" },
+            { "label": "No existe", "value": "no_existe" }
+          ]
+        },
+        {
+          "id": "reporte_brecha",
+          "label": "¿Pueden detectar y reportar una brecha de datos en 72 horas?",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí, tenemos capacidad", "value": "si" },
+            { "label": "Probablemente no", "value": "probable_no" },
+            { "label": "Definitivamente no", "value": "definitivo_no" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "terceros",
+      "title": "D. Gestión de Terceros y Transferencias",
+      "description": "Revisión de la relación con proveedores y transferencias de datos.",
+      "fields": [
+        {
+          "id": "cantidad_proveedores",
+          "label": "¿Cuántos proveedores/subcontratistas procesan datos personales?",
+          "type": "number",
+          "placeholder": "Ej: 15",
+          "required": true
+        },
+        {
+          "id": "contratos_dpa",
+          "label": "¿Tienen contratos DPA (Data Processing Agreements) firmados con procesadores de datos?",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí, con todos", "value": "todos" },
+            { "label": "Con algunos", "value": "algunos" },
+            { "label": "No", "value": "no" }
+          ]
+        },
+        {
+          "id": "paises_transferencia",
+          "label": "Transferencias internacionales: ¿A qué países (si aplica)?",
+          "type": "text",
+          "placeholder": "Ej: EEUU, Brasil, N/A",
+          "required": true
+        },
+        {
+          "id": "mecanismo_legal",
+          "label": "¿Bajo qué mecanismo legal se realizan las transferencias?",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Tenemos mecanismo formal (cláusulas, etc.)", "value": "formal" },
+            { "label": "No tenemos mecanismo", "value": "no_mecanismo" },
+            { "label": "No transferimos al extranjero", "value": "no_transferimos" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "derechos_arco",
+      "title": "E. Derechos de los Titulares (ARCO)",
+      "description": "Capacidad de respuesta a las solicitudes de los titulares de datos.",
+      "fields": [
+        {
+          "id": "proceso_arco",
+          "label": "¿Tienen proceso documentado para atender solicitudes ARCO? (Acceso, Rectificación, Cancelación, Oposición, Portabilidad)",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí, automatizado", "value": "automatizado" },
+            { "label": "Sí, manual", "value": "manual" },
+            { "label": "No", "value": "no" }
+          ]
+        },
+        {
+          "id": "tiempo_borrado",
+          "label": "¿Cuánto tiempo les tomaría borrar completamente los datos de una persona de TODOS los sistemas (incluidos backups)?",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "< 15 días", "value": "menos_15" },
+            { "label": "15-30 días", "value": "15_30" },
+            { "label": "> 30 días", "value": "mas_30" },
+            { "label": "No lo sabemos / No podemos hacerlo", "value": "no_sabemos" }
+          ]
+        },
+        {
+          "id": "portabilidad_datos",
+          "label": "¿Pueden exportar datos de un titular en formato estructurado (portabilidad)?",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí", "value": "si" },
+            { "label": "No", "value": "no" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "politicas",
+      "title": "F. Políticas y Procedimientos",
+      "description": "Existencia y madurez de la documentación interna.",
+      "fields": [
+        {
+          "id": "politica_privacidad",
+          "label": "¿Tienen Política de Privacidad actualizada según Ley 21.719?",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí", "value": "si" },
+            { "label": "En revisión", "value": "en_revision" },
+            { "label": "No", "value": "no" }
+          ]
+        },
+        {
+          "id": "politica_retencion",
+          "label": "¿Políticas de retención de datos documentadas por categoría?",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí, documentadas", "value": "si" },
+            { "label": "No", "value": "no" }
+          ]
+        },
+        {
+          "id": "proceso_dpia",
+          "label": "¿Tienen proceso de evaluación de impacto (DPIA) para tratamientos de alto riesgo?",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí, implementado", "value": "si" },
+            { "label": "No conocemos el proceso", "value": "no" }
+          ]
+        },
+        {
+          "id": "capacitacion_personal",
+          "label": "¿Personal capacitado en protección de datos y ciberseguridad?",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí, programa formal", "value": "formal" },
+            { "label": "Capacitaciones esporádicas", "value": "esporadicas" },
+            { "label": "No", "value": "no" }
+          ]
+        },
+        {
+          "id": "dpo",
+          "label": "¿Tienen designado (o piensan designar) un DPO (Data Protection Officer)?",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Ya tenemos", "value": "si" },
+            { "label": "Planeamos hacerlo", "value": "planeado" },
+            { "label": "No sabemos si es obligatorio", "value": "no_sabemos" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cumplimiento_actual",
+      "title": "G. Cumplimiento Normativo Actual",
+      "description": "Estado actual frente a estándares y regulaciones.",
+      "fields": [
+        {
+          "id": "estandares_cumplidos",
+          "label": "¿Actualmente cumplen con algún estándar de privacidad/seguridad?",
+          "type": "checkbox-group",
+          "required": true,
+          "allowOther": true,
+          "options": [
+            { "label": "ISO 27001", "value": "iso27001" },
+            { "label": "SOC 2", "value": "soc2" },
+            { "label": "PCI-DSS", "value": "pci_dss" },
+            { "label": "Ninguno", "value": "ninguno" }
+          ]
+        },
+        {
+          "id": "incidentes_previos",
+          "label": "¿Han tenido incidentes de seguridad o brechas de datos en los últimos 2 años?",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí", "value": "si" },
+            { "label": "No", "value": "no" }
+          ]
+        },
+        {
+          "id": "incidentes_cantidad",
+          "label": "Si aplica, ¿cuántos incidentes?",
+          "type": "number",
+          "placeholder": "0",
+          "required": false
+        },
+        {
+          "id": "multas",
+          "label": "¿Han recibido multas o sanciones relacionadas con datos personales o ciberseguridad?",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Sí", "value": "si" },
+            { "label": "No", "value": "no" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "alcance",
+      "title": "H. Alcance del Proyecto",
+      "description": "Dimensionamiento de la organización y el proyecto.",
+      "fields": [
+        {
+          "id": "num_empleados",
+          "label": "Número aproximado de empleados:",
+          "type": "number", "placeholder": "Ej: 100", "required": true
+        },
+        {
+          "id": "num_clientes",
+          "label": "Número aproximado de registros de clientes/usuarios:",
+          "type": "number", "placeholder": "Ej: 50000", "required": true
+        },
+        {
+          "id": "num_proveedores",
+          "label": "Número aproximado de registros de proveedores:",
+          "type": "number", "placeholder": "Ej: 200", "required": true
+        },
+        {
+          "id": "num_areas",
+          "label": "¿Cuántas áreas/departamentos procesan datos personales?",
+          "type": "number", "placeholder": "Ej: 4", "required": true
+        },
+        {
+          "id": "presupuesto",
+          "label": "Presupuesto estimado asignado para compliance:",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "< $20M CLP", "value": "menos_20m" },
+            { "label": "$20M - $50M CLP", "value": "20_50m" },
+            { "label": "$50M - $100M CLP", "value": "50_100m" },
+            { "label": "> $100M CLP", "value": "mas_100m" },
+            { "label": "Por definir", "value": "por_definir" }
+          ]
+        },
+        {
+          "id": "timeline",
+          "label": "Timeline deseado para estar en compliance:",
+          "type": "radio-group",
+          "required": true,
+          "options": [
+            { "label": "Antes de junio 2026", "value": "antes_jun26" },
+            { "label": "Junio - Diciembre 2026", "value": "jun_dic26" },
+            { "label": "No tenemos urgencia", "value": "sin_urgencia" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prioridades",
+      "title": "I. Prioridades y Expectativas",
+      "description": "Entendimiento de las principales preocupaciones y objetivos.",
+      "fields": [
+        {
+          "id": "mayor_preocupacion",
+          "label": "¿Cuál es su mayor preocupación? (marque hasta 3)",
+          "type": "checkbox-group",
+          "required": true,
+          "options": [
+            { "label": "Multas/sanciones", "value": "multas" },
+            { "label": "Reputación", "value": "reputacion" },
+            { "label": "Complejidad técnica", "value": "complejidad" },
+            { "label": "Costo", "value": "costo" }
+          ]
+        },
+        {
+          "id": "expectativas_consultoria",
+          "label": "¿Qué esperan de la consultoría? (marque todas las que apliquen)",
+          "type": "checkbox-group",
+          "required": true,
+          "options": [
+            { "label": "GAP analysis completo", "value": "gap_analysis" },
+            { "label": "Implementación técnica", "value": "implementacion" },
+            { "label": "Documentación y políticas", "value": "documentacion" },
+            { "label": "Capacitación", "value": "capacitacion" },
+            { "label": "Acompañamiento continuo post-implementación", "value": "acompanamiento" },
+            { "label": "Auditorías periódicas", "value": "auditorias" }
+          ]
+        },
+        {
+          "id": "readiness_score",
+          "label": "Del 0 (nada) al 10 (totalmente listos), ¿dónde creen que están hoy en términos de readiness?",
+          "type": "number",
+          "placeholder": "0-10",
+          "required": true,
+          "validationRegex": "^(10|[0-9])$",
+          "errorMessage": "Por favor, ingrese un número entre 0 y 10."
+        }
+      ]
+    },
+    {
+      "id": "contacto",
+      "title": "Datos de Contacto del Responsable",
+      "description": "Información de la persona a cargo de esta iniciativa.",
+      "fields": [
+        { "id": "contacto_nombre", "label": "Nombre", "type": "text", "placeholder": "Ej: Juan Pérez", "required": true },
+        { "id": "contacto_cargo", "label": "Cargo", "type": "text", "placeholder": "Ej: Gerente de TI", "required": true },
+        { "id": "contacto_email", "label": "Email", "type": "email", "placeholder": "ej: juan.perez@empresa.com", "required": true, "validationRegex": "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$" },
+        { "id": "contacto_telefono", "label": "Teléfono", "type": "text", "placeholder": "Ej: +56 9 1234 5678", "required": true }
+      ]
+    }
+  ]
+}

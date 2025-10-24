@@ -1,6 +1,5 @@
-
 import { useState, useMemo } from 'react';
-import { FormConfig, FormStep, FormData, FormErrors } from '../types';
+import { FormConfig, FormStep, FormData, FormErrors, FormState } from '../types';
 
 export const useMultiStepForm = (config: FormConfig, onSubmit?: (formData: FormData) => void) => {
   const [currentStepIndex, setCurrentStepIndex] = useState(-1); // -1 for welcome screen
@@ -89,6 +88,12 @@ export const useMultiStepForm = (config: FormConfig, onSubmit?: (formData: FormD
     setCurrentStepIndex(-1);
   };
 
+  const setFormState = (state: FormState) => {
+    setCurrentStepIndex(state.currentStepIndex);
+    setFormData(state.formData);
+    setErrors({}); // Clear errors on restore
+  };
+
   return {
     currentStepIndex,
     currentStep,
@@ -106,5 +111,6 @@ export const useMultiStepForm = (config: FormConfig, onSubmit?: (formData: FormD
     updateFormData,
     resetForm,
     validateStep,
+    setFormState,
   };
 };

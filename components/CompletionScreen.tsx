@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { FormConfig, FormData } from '../types';
 import { PartyPopperIcon } from './icons/PartyPopperIcon';
@@ -11,7 +10,7 @@ interface CompletionScreenProps {
 
 export const CompletionScreen: React.FC<CompletionScreenProps> = ({ content, onRestart, formData }) => {
   return (
-    <div className="flex flex-col items-center justify-center text-center p-8 min-h-[350px]">
+    <div className="flex flex-col items-center justify-center text-center p-8">
       <div className="w-16 h-16 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center mb-4">
         <PartyPopperIcon />
       </div>
