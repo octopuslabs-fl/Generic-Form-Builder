@@ -11,7 +11,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const loadFormConfig = async () => {
       try {
-        const response = await fetch('./data/form-data-compliance.json');
+        const response = await fetch('./data/form-data.json');
         if (!response.ok) {
           throw new Error(`Failed to load form configuration. Status: ${response.status}`);
         }
